@@ -1,0 +1,123 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  body {
+    @apply font-sans;
+    background: #0c0c0f;
+    color: #e2e8f0;
+  }
+
+  /* Unified dark scrollbar */
+  ::-webkit-scrollbar { width: 4px; height: 4px; }
+  ::-webkit-scrollbar-track { background: transparent; }
+  ::-webkit-scrollbar-thumb { background: rgba(255,255,255,0.09); border-radius: 999px; }
+  ::-webkit-scrollbar-thumb:hover { background: rgba(255,255,255,0.18); }
+}
+
+@layer components {
+  /* ── Buttons ─────────────────────────────────────── */
+  .btn-primary {
+    @apply relative bg-brand-500 text-white px-4 py-2.5 rounded-xl font-semibold
+           hover:bg-brand-400 active:scale-[0.97]
+           transition-all duration-200
+           disabled:opacity-40 disabled:cursor-not-allowed disabled:scale-100;
+    box-shadow: 0 0 0 1px rgba(99,102,241,0.4), 0 4px 16px rgba(99,102,241,0.2);
+  }
+  .btn-primary:not(:disabled):hover {
+    box-shadow: 0 0 0 1px rgba(129,140,248,0.55), 0 4px 24px rgba(99,102,241,0.35);
+  }
+
+  .btn-ghost {
+    @apply px-3 py-2 rounded-xl font-medium text-slate-400
+           hover:text-slate-200 hover:bg-white/5 active:bg-white/8 transition-colors duration-150;
+  }
+
+  /* ── Inputs ──────────────────────────────────────── */
+  .input-field {
+    @apply w-full px-3.5 py-2.5 rounded-xl text-slate-200 text-sm
+           placeholder-slate-600 outline-none transition-all duration-200
+           disabled:opacity-40 disabled:cursor-not-allowed;
+    background: rgba(255,255,255,0.04);
+    border: 1px solid rgba(255,255,255,0.08);
+  }
+  .input-field:focus {
+    border-color: rgba(99,102,241,0.5);
+    box-shadow: 0 0 0 3px rgba(99,102,241,0.12);
+  }
+
+  /* ── Chat input wrap ─────────────────────────────── */
+  .chat-input-wrap {
+    @apply rounded-2xl transition-all duration-200;
+    background: #16161c;
+    border: 1px solid rgba(255,255,255,0.08);
+  }
+  .chat-input-wrap:focus-within {
+    border-color: rgba(99,102,241,0.4);
+    box-shadow: 0 0 0 3px rgba(99,102,241,0.1);
+  }
+
+  /* ── Streaming cursor ────────────────────────────── */
+  .streaming-cursor::after {
+    content: '▊';
+    @apply text-brand-400 animate-pulse ml-0.5;
+  }
+
+  /* ── Gradient text ───────────────────────────────── */
+  .gradient-text {
+    @apply bg-gradient-to-r from-brand-400 to-indigo-400 bg-clip-text text-transparent;
+  }
+
+  /* ── Auth left-panel background ─────────────────── */
+  .bg-auth {
+    background: linear-gradient(140deg, #06081a 0%, #0d1035 35%, #180f55 65%, #0a0d2e 100%);
+  }
+
+  /* ── Chat area background ────────────────────────── */
+  .bg-chat {
+    background: #0c0c0f;
+  }
+}
+
+@layer utilities {
+  /* ── Message fade-in ─────────────────────────────── */
+  .msg-enter {
+    animation: msgIn 0.26s cubic-bezier(0.16,1,0.3,1) forwards;
+  }
+
+  @keyframes msgIn {
+    from { opacity: 0; transform: translateY(8px) scale(0.98); }
+    to   { opacity: 1; transform: translateY(0) scale(1); }
+  }
+
+  /* ── Voice pulse ring ────────────────────────────── */
+  .voice-playing { animation: voicePulse 1.5s ease-in-out infinite; }
+
+  @keyframes voicePulse {
+    0%, 100% { box-shadow: 0 0 0 0 rgba(99,102,241,0.5); }
+    50%       { box-shadow: 0 0 0 7px rgba(99,102,241,0); }
+  }
+
+  /* ── Shimmer skeleton ────────────────────────────── */
+  .shimmer {
+    background: linear-gradient(90deg, #16161c 25%, #1e1e27 50%, #16161c 75%);
+    background-size: 200% 100%;
+    animation: shimmer 1.8s linear infinite;
+  }
+  @keyframes shimmer {
+    0%   { background-position: -200% 0; }
+    100% { background-position:  200% 0; }
+  }
+
+  /* ── Typing dots ─────────────────────────────────── */
+  .typing-dot {
+    animation: typingDot 1.4s ease-in-out infinite;
+  }
+  .typing-dot:nth-child(2) { animation-delay: 0.2s; }
+  .typing-dot:nth-child(3) { animation-delay: 0.4s; }
+  @keyframes typingDot {
+    0%, 60%, 100% { opacity: 0.25; transform: translateY(0); }
+    30%           { opacity: 1;    transform: translateY(-3px); }
+  }
+}
